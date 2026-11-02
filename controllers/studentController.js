@@ -8,11 +8,10 @@ export const createStudent = async (req, res) => {
         const student = await Student.create(req.body);
         res.status(201).json(student);
     } catch (error) {
-        // Handle duplicate rollNumber or email error (MongoDB code 11000)
+        // Handle duplicate rollNumber or email error (MongoDB error code 11000)
         if (error.code === 11000) {
-            const field = Object.keys(error.keyValue)[0];
             return res.status(400).json({
-                message: `Duplicate value: A student with this ${field} already exists.`
+                message: "Duplicate value: A student with this rollNumber or email already exists."
             });
         }
         res.status(400).json({ message: error.message });
@@ -67,7 +66,7 @@ export const updateStudent = async (req, res) => {
         const student = await Student.findByIdAndUpdate(
             id,
             req.body,
-            { new: true, runValidators: true }
+            { returnDocument: "after", runValidators: true }
         );
 
         if (!student) {
@@ -78,9 +77,8 @@ export const updateStudent = async (req, res) => {
     } catch (error) {
         // Handle duplicate rollNumber or email during update
         if (error.code === 11000) {
-            const field = Object.keys(error.keyValue)[0];
             return res.status(400).json({
-                message: `Duplicate value: A student with this ${field} already exists.`
+                message: "Duplicate value: A student with this rollNumber or email already exists."
             });
         }
         res.status(400).json({ message: error.message });
