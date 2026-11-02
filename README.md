@@ -22,25 +22,7 @@
 
 ---
 
-## 📑 Table of Contents
-
-- [1. Project Overview](#1-project-overview)
-- [2. Key Features](#2-key-features)
-- [3. Technologies Used](#3-technologies-used)
-- [4. Project Folder Structure](#4-project-folder-structure)
-- [5. Installation and Setup](#5-installation-and-setup)
-- [6. Environment Variables](#6-environment-variables)
-- [7. How to Run the Project](#7-how-to-run-the-project)
-- [8. API Endpoints](#8-api-endpoints)
-- [9. API Request and Response Examples](#9-api-request-and-response-examples)
-- [10. Testing with Postman](#10-testing-with-postman)
-- [11. Error Handling](#11-error-handling)
-- [12. Future Improvements](#12-future-improvements)
-- [13. Author & Credits](#13-author--credits)
-
----
-
-## 1. Project Overview
+## 📌 Project Overview
 
 The **Student Management API** is a RESTful web service built with **Node.js**, **Express.js**, and **MongoDB Atlas** using **Mongoose ODM**. It was created as a first-year BTech Computer Science & Engineering college project to demonstrate backend architectural design, database modeling, and complete CRUD (Create, Read, Update, Delete) capabilities.
 
@@ -48,7 +30,7 @@ The project follows a clean **MVC (Model-View-Controller)** pattern, uses standa
 
 ---
 
-## 2. Key Features
+## ✨ Key Features
 
 - ⚡ **Full CRUD Functionality**: Seamlessly register, retrieve, update, and remove student profiles.
 - 🔒 **Safe ID Validation**: Checks 24-character hexadecimal MongoDB ObjectIds before querying, preventing server crashes on malformed requests.
@@ -60,7 +42,7 @@ The project follows a clean **MVC (Model-View-Controller)** pattern, uses standa
 
 ---
 
-## 3. Technologies Used
+## 🛠️ Technologies Used
 
 | Technology | Purpose | Documentation |
 | :--- | :--- | :--- |
@@ -76,7 +58,7 @@ The project follows a clean **MVC (Model-View-Controller)** pattern, uses standa
 
 ---
 
-## 4. Project Folder Structure
+## 📂 Project Folder Structure
 
 The project strictly follows a clean and lightweight MVC structure:
 
@@ -95,6 +77,13 @@ student-management-api/
 ├── routes/
 │   └── studentRoutes.js       # Route mappings for /api/students
 │
+├── screenshots/               # Actual Postman test screenshots
+│   ├── 01-health-check.png
+│   ├── 02-create-student.png
+│   ├── 03-get-all-students.png
+│   ├── 04-get-student-by-id.png
+│   └── 05-update-student.png
+│
 ├── .env                       # Local secrets & credentials (never committed)
 ├── .env.example               # Template showing required environment variables
 ├── .gitignore                 # Excludes .env and node_modules from Git
@@ -107,7 +96,7 @@ student-management-api/
 
 ---
 
-## 5. Installation and Setup
+## ⚙️ Installation and Setup
 
 ### Prerequisites
 Make sure you have the following installed on your machine:
@@ -140,7 +129,7 @@ Make sure you have the following installed on your machine:
 
 ---
 
-## 6. Environment Variables
+## 🔐 Environment Variables
 
 Open your newly created `.env` file and configure your port and MongoDB Atlas connection string:
 
@@ -157,7 +146,7 @@ MONGO_URI=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/student
 
 ---
 
-## 7. How to Run the Project
+## 🚀 How to Run the Project
 
 ### Development Mode (with automatic restart on file save):
 ```bash
@@ -182,7 +171,7 @@ Student Management API is Running!
 
 ---
 
-## 8. API Endpoints
+## 📡 API Endpoints
 
 **Base URL**: `http://localhost:5000`
 
@@ -197,12 +186,28 @@ Student Management API is Running!
 
 ---
 
-## 9. API Request and Response Examples
+## 🧪 Postman API Demonstrations & Examples
 
-### 1. Create a Student
+Below are the actual test requests executed and verified in Postman.
+
+### 1. Health Check
+- **Method**: `GET`
+- **URL**: `http://localhost:5000/`
+- **Status**: `200 OK`
+- **Response**:
+  ```text
+  Student Management API is Running!
+  ```
+
+![GET / Health Check](screenshots/01-health-check.png)
+
+---
+
+### 2. Create a Student
 - **Method**: `POST`
 - **URL**: `http://localhost:5000/api/students`
 - **Headers**: `Content-Type: application/json`
+- **Status**: `201 Created`
 
 **Request Body**:
 ```json
@@ -215,74 +220,83 @@ Student Management API is Running!
 }
 ```
 
-**Response (`201 Created`)**:
+**Response**:
 ```json
 {
-  "_id": "672728f1e83910c5949a1234",
   "name": "Rahul Sharma",
   "rollNumber": "101",
   "email": "rahul@gmail.com",
   "course": "BTech CSE",
   "year": 1,
-  "createdAt": "2026-11-03T00:00:00.000Z",
-  "updatedAt": "2026-11-03T00:00:00.000Z",
+  "_id": "6ae8e3618b7ad0d810cfb806",
+  "createdAt": "2026-11-02T19:24:17.282Z",
+  "updatedAt": "2026-11-02T19:24:17.282Z",
   "__v": 0
 }
 ```
 
+![POST /api/students](screenshots/02-create-student.png)
+
 > [!TIP]
-> **Getting the ID**: Copy the value of the `_id` field from this response (e.g. `672728f1e83910c5949a1234`) to use as the `:id` parameter in the requests below.
+> **Getting the ID**: Copy the generated `_id` (`6ae8e3618b7ad0d810cfb806`) from the response to retrieve, update, or delete this student record.
 
 ---
 
-### 2. Get All Students
+### 3. Get All Students
 - **Method**: `GET`
 - **URL**: `http://localhost:5000/api/students`
+- **Status**: `200 OK`
 
-**Response (`200 OK`)**:
+**Response**:
 ```json
 [
   {
-    "_id": "672728f1e83910c5949a1234",
+    "_id": "6ae8e3618b7ad0d810cfb806",
     "name": "Rahul Sharma",
     "rollNumber": "101",
     "email": "rahul@gmail.com",
     "course": "BTech CSE",
     "year": 1,
-    "createdAt": "2026-11-03T00:00:00.000Z",
-    "updatedAt": "2026-11-03T00:00:00.000Z",
+    "createdAt": "2026-11-02T19:24:17.282Z",
+    "updatedAt": "2026-11-02T19:24:17.282Z",
     "__v": 0
   }
 ]
 ```
 
+![GET /api/students](screenshots/03-get-all-students.png)
+
 ---
 
-### 3. Get Student by ID
+### 4. Get Student by ID
 - **Method**: `GET`
-- **URL**: `http://localhost:5000/api/students/672728f1e83910c5949a1234`
+- **URL**: `http://localhost:5000/api/students/6ae8e3618b7ad0d810cfb806`
+- **Status**: `200 OK`
 
-**Response (`200 OK`)**:
+**Response**:
 ```json
 {
-  "_id": "672728f1e83910c5949a1234",
+  "_id": "6ae8e3618b7ad0d810cfb806",
   "name": "Rahul Sharma",
   "rollNumber": "101",
   "email": "rahul@gmail.com",
   "course": "BTech CSE",
   "year": 1,
-  "createdAt": "2026-11-03T00:00:00.000Z",
-  "updatedAt": "2026-11-03T00:00:00.000Z",
+  "createdAt": "2026-11-02T19:24:17.282Z",
+  "updatedAt": "2026-11-02T19:24:17.282Z",
   "__v": 0
 }
 ```
 
+![GET /api/students/:id](screenshots/04-get-student-by-id.png)
+
 ---
 
-### 4. Update Student Details
+### 5. Update Student Details
 - **Method**: `PUT`
-- **URL**: `http://localhost:5000/api/students/672728f1e83910c5949a1234`
+- **URL**: `http://localhost:5000/api/students/6ae8e3618b7ad0d810cfb806`
 - **Headers**: `Content-Type: application/json`
+- **Status**: `200 OK`
 
 **Request Body**:
 ```json
@@ -292,28 +306,31 @@ Student Management API is Running!
 }
 ```
 
-**Response (`200 OK`)**:
+**Response**:
 ```json
 {
-  "_id": "672728f1e83910c5949a1234",
+  "_id": "6ae8e3618b7ad0d810cfb806",
   "name": "Rahul Sharma",
   "rollNumber": "101",
   "email": "rahul@gmail.com",
   "course": "BTech CSE (Data Science)",
   "year": 2,
-  "createdAt": "2026-11-03T00:00:00.000Z",
-  "updatedAt": "2026-11-03T00:10:00.000Z",
+  "createdAt": "2026-11-02T19:24:17.282Z",
+  "updatedAt": "2026-11-02T19:26:42.868Z",
   "__v": 0
 }
 ```
 
+![PUT /api/students/:id](screenshots/05-update-student.png)
+
 ---
 
-### 5. Delete a Student
+### 6. Delete a Student
 - **Method**: `DELETE`
-- **URL**: `http://localhost:5000/api/students/672728f1e83910c5949a1234`
+- **URL**: `http://localhost:5000/api/students/6ae8e3618b7ad0d810cfb806`
+- **Status**: `200 OK`
 
-**Response (`200 OK`)**:
+**Response**:
 ```json
 {
   "message": "Student deleted successfully."
@@ -322,21 +339,7 @@ Student Management API is Running!
 
 ---
 
-## 10. Testing with Postman
-
-1. **Launch Postman** and create a new collection named `Student Management API`.
-2. **Add Requests**:
-   - `GET http://localhost:5000/` &rarr; Verify the home route status `200`.
-   - `POST http://localhost:5000/api/students` &rarr; In the **Body** tab, select **raw** and set format to **JSON**. Paste the sample payload and click **Send**.
-   - Copy the generated `_id` from the response.
-   - `GET http://localhost:5000/api/students` &rarr; View all student objects.
-   - `GET http://localhost:5000/api/students/:id` &rarr; Paste the copied ID to view individual profile.
-   - `PUT http://localhost:5000/api/students/:id` &rarr; Update `year` or `course`.
-   - `DELETE http://localhost:5000/api/students/:id` &rarr; Delete the record.
-
----
-
-## 11. Error Handling
+## ⚠️ Error Handling
 
 The API returns consistent and structured JSON error responses with standard HTTP status codes:
 
@@ -350,18 +353,7 @@ The API returns consistent and structured JSON error responses with standard HTT
 
 ---
 
-## 12. Future Improvements
-
-Planned features for future iterations and advanced coursework:
-- 📄 **Pagination & Query Filters**: Support page limits and course filtering (e.g. `/api/students?page=1&limit=10&course=CSE`).
-- 🔐 **Authentication & Authorization**: Add JWT (JSON Web Tokens) with role-based access for students and administrators.
-- 📋 **Input Validation Middleware**: Integrate Joi or express-validator for deep payload checks.
-- 💻 **Frontend Web Dashboard**: Connect a React or Tailwind CSS interface to manage student records visually.
-- 📖 **Swagger / OpenAPI Documentation**: Provide interactive API documentation via `/api-docs`.
-
----
-
-## 13. Author & Credits
+## 👨‍💻 Author & Credits
 
 - **Developer**: **Akarshit Makkar**
 - **GitHub Profile**: [@akarshitmakkar-coder](https://github.com/akarshitmakkar-coder)
